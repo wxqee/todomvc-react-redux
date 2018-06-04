@@ -1,4 +1,4 @@
-import { FETCH_TODOS, CREATE_TODO } from "./types";
+import {FETCH_TODOS, CREATE_TODO, REMOVE_TODO} from "./types";
 
 export const fetchTodos = () => dispatch => {
     dispatch({
@@ -14,4 +14,9 @@ export const fetchTodos = () => dispatch => {
 export const createTodo = text => ({
     type: CREATE_TODO,
     payload: text,
+});
+
+export const removeTodo = id => ({
+    type: REMOVE_TODO,
+    payload: id,
 });

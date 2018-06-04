@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTodos } from '../actions/todoActions';
+import { fetchTodos, removeTodo } from '../actions/todoActions';
 
 class TodoList extends Component {
     componentWillMount = () => {
         this.props.fetchTodos();
     };
+
+    onItemDestroy(id) {
+        return () => {
+            this.props.removeTodo(id);
+        }
+    }
 
     render() {
         if (!this.props.todos) {
@@ -17,11 +23,11 @@ class TodoList extends Component {
                 {/* <!-- These are here just to show the structure of the list items --> */}
                 {/* <!-- List items should get the class `editing` when editing and `completed` when marked as completed --> */}
                 {this.props.todos.map(todo => (
-                    <li className={todo.checked && "completed"}>
+                    <li className={todo.checked && "completed"} key={todo.id}>
                         <div className="view">
                             <input className="toggle" type="checkbox" checked={todo.checked} />
                             <label>{todo.text}</label>
-                            <button className="destroy"></button>
+                            <button className="destroy" onClick={this.onItemDestroy(todo.id)}></button>
                         </div>
                         <input className="edit" value="Create a TodoMVC template" />
                     </li>
@@ -43,4 +49,4 @@ const mapStateToProps = state => ({
     todos: state.todos.items,
 });
 
-export default connect(mapStateToProps, { fetchTodos })(TodoList);
+export default connect(mapStateToProps, { fetchTodos, removeTodo })(TodoList);

@@ -1,4 +1,4 @@
-import {CREATE_TODO, FETCH_TODOS} from "../actions/types";
+import {CREATE_TODO, FETCH_TODOS, REMOVE_TODO } from "../actions/types";
 
 const initialState = {
     items: [],
@@ -25,6 +25,12 @@ export default function (state = initialState, action) {
                 ...state,
                 items: [...state.items], // Have to change items as reference change.
                 newItem,
+            };
+        case REMOVE_TODO:
+            const items = state.items.filter(item => item.id !== action.payload);
+            return {
+                ...state,
+                items,
             };
         default:
             return state;
