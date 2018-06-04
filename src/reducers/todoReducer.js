@@ -1,4 +1,4 @@
-import {CREATE_TODO, FETCH_TODOS, REMOVE_TODO } from "../actions/types";
+import {CREATE_TODO, FETCH_TODOS, REMOVE_TODO, TOGGLE_TODO} from "../actions/types";
 
 const initialState = {
     items: [],
@@ -31,6 +31,18 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 items,
+            };
+        case TOGGLE_TODO:
+            state.items.forEach(item => {
+                console.log(item.id);
+                if (item.id === action.payload) {
+                    console.log('checked');
+                    item.checked = !item.checked;
+                }
+            });
+            return {
+                ...state,
+                items: [...state.items],
             };
         default:
             return state;

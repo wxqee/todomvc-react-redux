@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTodos, removeTodo } from '../actions/todoActions';
+import { fetchTodos, removeTodo, toggleTodo } from '../actions/todoActions';
 
 class TodoList extends Component {
     componentWillMount = () => {
         this.props.fetchTodos();
     };
 
-    onItemDestroy(id) {
-        return () => {
-            this.props.removeTodo(id);
-        }
-    }
+    onItemDestroy = (id) => () => {
+        this.props.removeTodo(id);
+    };
+
+    onItemToggle = (id) => () => {
+        this.props.toggleTodo(id);
+    };
 
     render() {
         if (!this.props.todos) {
@@ -25,7 +27,7 @@ class TodoList extends Component {
                 {this.props.todos.map(todo => (
                     <li className={todo.checked && "completed"} key={todo.id}>
                         <div className="view">
-                            <input className="toggle" type="checkbox" checked={todo.checked} />
+                            <input className="toggle" type="checkbox" checked={todo.checked} onClick={this.onItemToggle(todo.id)} />
                             <label>{todo.text}</label>
                             <button className="destroy" onClick={this.onItemDestroy(todo.id)}></button>
                         </div>
@@ -49,4 +51,4 @@ const mapStateToProps = state => ({
     todos: state.todos.items,
 });
 
-export default connect(mapStateToProps, { fetchTodos, removeTodo })(TodoList);
+export default connect(mapStateToProps, { fetchTodos, removeTodo, toggleTodo })(TodoList);
