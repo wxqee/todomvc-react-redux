@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
@@ -7,10 +7,11 @@ const initialState = {
     newTodo: {},
 };
 
-const middlewares = [
-    thunk,
-];
+const middlewares = [thunk];
 
-const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares));
+const store = createStore(rootReducer, initialState, compose(
+    applyMiddleware(...middlewares),
+    window.devToolsExtension && window.devToolsExtension(),
+));
 
 export default store;

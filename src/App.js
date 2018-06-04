@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import './App.css';
 import store from './store';
 import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 class App extends Component {
   render() {
@@ -12,7 +13,7 @@ class App extends Component {
                 <section className="todoapp">
                     <header className="header">
                         <h1>todos</h1>
-                        <input className="new-todo" placeholder="What needs to be done?" autoFocus />
+                        <TodoForm />
                     </header>
                     {/* <!-- This section should be hidden by default and shown when there are todos --> */}
                     <section className="main">

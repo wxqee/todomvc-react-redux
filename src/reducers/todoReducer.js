@@ -1,4 +1,4 @@
-import { FETCH_TODOS } from "../actions/types";
+import {CREATE_TODO, FETCH_TODOS} from "../actions/types";
 
 const initialState = {
     items: [],
@@ -11,6 +11,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 items: action.payload,
+            };
+        case CREATE_TODO:
+            const id = state.items.length + 1;
+            const newItem = {
+                id,
+                text: action.payload,
+                checked: false,
+            };
+            state.items.unshift(newItem);
+
+            return {
+                ...state,
+                items: [...state.items], // Have to change items as reference change.
+                newItem,
             };
         default:
             return state;

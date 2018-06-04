@@ -1,4 +1,4 @@
-import { FETCH_TODOS } from "./types";
+import { FETCH_TODOS, CREATE_TODO } from "./types";
 
 export const fetchTodos = () => dispatch => {
     dispatch({
@@ -10,3 +10,8 @@ export const fetchTodos = () => dispatch => {
         ],
     });
 };
+
+export const createTodo = text => ({
+    type: CREATE_TODO,
+    payload: text,
+});
